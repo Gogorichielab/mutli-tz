@@ -1,30 +1,36 @@
-# mutli-tz
+# 🌍 World Clock
 
-A React + Vite application deployed to GitHub Pages.
+A live world clock dashboard showing local time for **Mumbai, Chicago, Edinburgh, Lisbon, Manila, and Boston** — built with React + Vite + [react-simple-maps](https://www.react-simple-maps.io/).
 
-## Development
+## Features
+
+- Interactive Natural Earth projection map (scroll to zoom, drag to pan)
+- Hover city pins to see live local time tooltips
+- Analog + digital clocks updating every second
+- UTC reference bar
+
+## Local Development
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Build
+## Deploying to GitHub Pages
 
-```bash
-npm run build
+1. Push this repo to GitHub
+2. Go to your repo → **Settings** → **Pages**
+3. Under **Source**, select **GitHub Actions**
+4. Push to `main` — the workflow in `.github/workflows/deploy.yml` will build and publish automatically ✅
+
+Your site will be live at:
+```
+https://<your-username>.github.io/<your-repo-name>/
 ```
 
-## Deployment
+## Tech Stack
 
-This app is automatically deployed to GitHub Pages when changes are pushed to the `main` branch via GitHub Actions.
-
-The deployment workflow:
-1. Builds the Vite app
-2. Uploads the build artifacts
-3. Deploys to GitHub Pages
-
-To enable GitHub Pages for this repository:
-1. Go to repository Settings > Pages
-2. Set Source to "GitHub Actions"
-3. The workflow will automatically deploy on push to main
+- [React 18](https://react.dev/)
+- [Vite 5](https://vitejs.dev/)
+- [react-simple-maps](https://www.react-simple-maps.io/)
+- [world-atlas](https://github.com/topojson/world-atlas) — TopoJSON country data (via CDN)
