@@ -1,0 +1,78 @@
+name: Auto-merge Dependabot dependencies
+
+on:
+  schedule:
+    # 06:00 UTC every Friday; workflow exits early unless it is the last Friday of the month
+    - cron: "0 6 * * FRI"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge-dependabot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirm last Friday of the month
+        id: schedule
+        run: |
+          set -euo pipefail
+
+          today="$(date -u +%Y-%m-%d)"
+          last_day="$(date -u -d "$(date -u '+%Y-%m-01') +1 month -1 day" +%Y-%m-%d)"
+          weekday_last_day="$(date -u -d "${last_day}" +%u)"
+          offset=$(( (weekday_last_day - 5 + 7) % 7 ))
+          last_friday="$(date -u -d "${last_day} -${offset} day" +%Y-%m-%d)"
+
+          if [ "${today}" != "${last_friday}" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then
+            echo "should_run=false" >> "${GITHUB_OUTPUT}"
+            echo "Today (${today}) is not the last Friday of the month (${last_friday}); skipping."
+            exit 0
+          fi
+
+          echo "should_run=true" >> "${GITHUB_OUTPUT}"
+          echo "Proceeding with auto-merge run for ${today}."
+
+      - name: Merge Dependabot PRs labeled dependencies
+        if: steps.schedule.outputs.should_run == 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            const pulls = await github.paginate(github.rest.pulls.list, {
+              owner,
+              repo,
+              state: 'open',
+              per_page: 100,
+            });
+
+            const targets = pulls.filter((pr) => {
+              const fromDependabot = pr.user?.login === 'dependabot[bot]';
+              const hasDependenciesLabel = pr.labels?.some(
+                (label) => label.name && label.name.toLowerCase() === 'dependencies'
+              );
+              return fromDependabot && hasDependenciesLabel;
+            });
+
+            if (targets.length === 0) {
+              core.info('No Dependabot PRs with the dependencies label to merge.');
+              return;
+            }
+
+            for (const pr of targets) {
+              try {
+                await github.rest.pulls.merge({
+                  owner,
+                  repo,
+                  pull_number: pr.number,
+                  merge_method: 'squash',
+                });
+                core.info(`Merged #${pr.number}: ${pr.title}`);
+              } catch (error) {
+                core.warning(`Could not merge #${pr.number}: ${error.message}`);
+              }
+            }
