@@ -148,18 +148,7 @@ function ClockCard({ city, delay }) {
   }, [city.tz])
 
   return (
-    <div style={{
-      background: 'var(--surface)',
-      padding: '1.6rem 1.4rem',
-      position: 'relative',
-      overflow: 'hidden',
-      cursor: 'default',
-      transition: 'background 0.25s',
-      animation: `fadeUp 0.7s ${delay}s ease both`,
-    }}
-    onMouseEnter={e => e.currentTarget.style.background = 'var(--surface2)'}
-    onMouseLeave={e => e.currentTarget.style.background = 'var(--surface)'}
-    >
+    <div className="clock-card" style={{ animation: `fadeUp 0.7s ${delay}s ease both` }}>
       {/* Top accent line on hover via pseudo isn't easy in inline — use a box */}
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
@@ -171,47 +160,12 @@ function ClockCard({ city, delay }) {
         <AnalogClock tz={city.tz} />
       </div>
 
-      <span style={{ fontSize: '1.5rem', display: 'block', marginBottom: '0.5rem' }}>{city.flag}</span>
-      <span style={{
-        fontFamily: "'DM Serif Display', serif",
-        fontSize: '1.1rem',
-        display: 'block',
-        marginBottom: '0.1rem',
-        color: 'var(--text)',
-      }}>{city.city}</span>
-      <span style={{
-        fontSize: '0.58rem',
-        letterSpacing: '0.18em',
-        color: 'var(--muted)',
-        textTransform: 'uppercase',
-        display: 'block',
-        marginBottom: '0.9rem',
-      }}>{city.country}</span>
-      <span style={{
-        fontFamily: "'DM Mono', monospace",
-        fontSize: '1.55rem',
-        fontWeight: 500,
-        color: 'var(--accent)',
-        letterSpacing: '-0.02em',
-        display: 'block',
-        lineHeight: 1,
-      }}>{time}</span>
-      <span style={{
-        fontSize: '0.6rem',
-        color: 'var(--muted)',
-        letterSpacing: '0.1em',
-        marginTop: '0.4rem',
-        display: 'block',
-      }}>{date}</span>
-      <span style={{
-        position: 'absolute',
-        bottom: '0.9rem',
-        right: '1.1rem',
-        fontSize: '0.52rem',
-        letterSpacing: '0.15em',
-        color: 'rgba(100,160,220,0.2)',
-        textTransform: 'uppercase',
-      }}>{city.tz.split('/')[1]?.replace('_', ' ')}</span>
+      <span className="clock-flag">{city.flag}</span>
+      <span className="clock-city">{city.city}</span>
+      <span className="clock-country">{city.country}</span>
+      <span className="clock-time">{time}</span>
+      <span className="clock-date">{date}</span>
+      <span className="clock-tz">{city.tz.split('/')[1]?.replace('_', ' ')}</span>
     </div>
   )
 }
@@ -221,11 +175,11 @@ function WorldMap({ times }) {
   const [position, setPosition] = useState({ coordinates: [0, 20], zoom: 1 })
 
   return (
-    <div style={{ position: 'relative', background: '#071524', borderRadius: '0 0 14px 14px' }}>
+    <div className="map-panel">
       <ComposableMap
         projection="geoNaturalEarth1"
         projectionConfig={{ scale: 185, center: [10, 10] }}
-        style={{ width: '100%', height: 'auto', display: 'block' }}
+        className="world-map-svg"
       >
         <ZoomableGroup
           zoom={position.zoom}
@@ -320,16 +274,7 @@ function WorldMap({ times }) {
       </ComposableMap>
 
       {/* Zoom hint */}
-      <div style={{
-        position: 'absolute',
-        bottom: '0.8rem',
-        right: '1rem',
-        fontSize: '0.52rem',
-        color: 'rgba(100,160,220,0.3)',
-        letterSpacing: '0.15em',
-        textTransform: 'uppercase',
-        pointerEvents: 'none',
-      }}>
+      <div className="map-zoom-hint">
         Scroll to zoom · Drag to pan
       </div>
     </div>
@@ -386,14 +331,7 @@ export default function App() {
       </div>
 
       {/* Map Card */}
-      <div style={{
-        border: '1px solid var(--border)',
-        borderRadius: '16px',
-        overflow: 'hidden',
-        marginBottom: '2rem',
-        animation: 'fadeUp 0.9s 0.2s ease both',
-        boxShadow: '0 8px 40px rgba(0,0,0,0.4)',
-      }}>
+      <div className="map-card">
         {/* Map header bar */}
         <div style={{
           padding: '0.7rem 1.2rem',
@@ -415,16 +353,7 @@ export default function App() {
       </div>
 
       {/* Clock Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))',
-        gap: '1px',
-        background: 'var(--border)',
-        border: '1px solid var(--border)',
-        borderRadius: '16px',
-        overflow: 'hidden',
-        boxShadow: '0 8px 40px rgba(0,0,0,0.3)',
-      }}>
+      <div className="clock-grid">
         {CITIES.map((city, i) => (
           <ClockCard key={city.id} city={city} delay={0.1 + i * 0.08} />
         ))}
