@@ -78,3 +78,9 @@ body::after {
   0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.55); }
   50%       { box-shadow: 0 0 0 7px rgba(201,168,76,0); }
 }
+
+@media (max-width: 820px), (max-height: 760px) {
+  .app-content-grid {
+    grid-template-rows: auto auto !important;
+  }
+}
