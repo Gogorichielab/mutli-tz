@@ -11,8 +11,35 @@ This is a small shared world clock app for a distributed team.
 - Goal: show the current local times for the time zones where teammates work.
 - Users: a small internal audience, currently about 2-3 recurring GitHub Pages users.
 - Product shape: a simple static dashboard, not a platform.
-- Stack: Vite + React.
+- Stack: Vite 5 + React 18.
 - Deployment: GitHub Pages.
+
+## Framework And Build Details
+
+- Runtime UI stack: React 18 with `react-dom`.
+- Build tool: Vite 5.
+- React integration: `@vitejs/plugin-react`.
+- Module format: ESM via `"type": "module"` in `package.json`.
+- Mapping library: `react-simple-maps`.
+- Geo projection support: `d3-geo`.
+- Geography dataset: Natural Earth TopoJSON loaded from the `world-atlas` CDN.
+- App entry point: `src/main.jsx`.
+- Main app logic: `src/App.jsx`.
+- Global styles: `src/index.css`.
+- Vite config sets `base: './'`, which is important for GitHub Pages static hosting.
+- Package scripts:
+	- `npm run dev` starts Vite dev server.
+	- `npm run build` creates the production build.
+	- `npm run preview` serves the built app locally.
+
+## Deployment Details
+
+- Deployment target: GitHub Pages.
+- CI workflow: `.github/workflows/deploy.yml`.
+- GitHub Actions runtime: Node 20.
+- CI install command: `npm ci`.
+- Build output directory: `dist/`.
+- Keep relative asset paths and static hosting compatibility intact unless deployment work is explicitly requested.
 
 ## What Matters Most
 
@@ -41,6 +68,7 @@ Prioritize work in this order:
 - Avoid manual timezone offset math when runtime formatting can derive the result.
 - Be careful around daylight saving time transitions.
 - Keep each city's name, country, coordinates, and timezone together in one source of truth.
+- The current app updates displayed times every second in React state; keep timer logic simple and lightweight.
 
 ## UI Rules
 
@@ -57,6 +85,33 @@ Prioritize work in this order:
 - Do not refactor unrelated parts of the app.
 - Update documentation only when behavior, setup, or deployment changes.
 - After code changes, run a production build before considering the task complete.
+- Preserve the current Vite and GitHub Pages deployment assumptions unless the task explicitly requires changing them.
+
+## PR Standards
+
+- Keep PRs small and single-purpose.
+- Use a clear title in this style: `scope: short outcome` (example: `timezone: fix Chicago DST display`).
+- Include a short summary with:
+	- what changed
+	- why it changed
+	- user-visible impact
+- Add a testing section with exact commands run (at minimum `npm run build` when code changes).
+- If timezone logic changed, list affected cities and explicitly call out DST assumptions.
+- Include before/after screenshots for UI changes.
+- Do not mix unrelated refactors with feature or bug-fix work.
+- Flag dependency changes and explain why they are needed.
+- Keep commits and diffs reviewable; avoid broad file churn.
+- Ensure PR descriptions are understandable by teammates who did not author the change.
+
+### PR Checklist
+
+- [ ] Scope is focused and relevant to the timezone dashboard.
+- [ ] Build passes locally (`npm run build`) when code changed.
+- [ ] Time displays were manually checked for affected cities.
+- [ ] Mobile and desktop readability were verified for UI changes.
+- [ ] Screenshots attached for visual changes.
+- [ ] README/docs updated if behavior, setup, or deployment changed.
+- [ ] No unnecessary dependencies or unrelated rewrites introduced.
 
 ## Good Changes
 
