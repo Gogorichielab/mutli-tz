@@ -148,18 +148,7 @@ function ClockCard({ city, delay }) {
   }, [city.tz])
 
   return (
-    <div style={{
-      background: 'var(--surface)',
-      padding: '1.6rem 1.4rem',
-      position: 'relative',
-      overflow: 'hidden',
-      cursor: 'default',
-      transition: 'background 0.25s',
-      animation: `fadeUp 0.7s ${delay}s ease both`,
-    }}
-    onMouseEnter={e => e.currentTarget.style.background = 'var(--surface2)'}
-    onMouseLeave={e => e.currentTarget.style.background = 'var(--surface)'}
-    >
+    <div className="clock-card" style={{ animation: `fadeUp 0.7s ${delay}s ease both` }}>
       {/* Top accent line on hover via pseudo isn't easy in inline — use a box */}
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
@@ -171,47 +160,12 @@ function ClockCard({ city, delay }) {
         <AnalogClock tz={city.tz} />
       </div>
 
-      <span style={{ fontSize: '1.5rem', display: 'block', marginBottom: '0.5rem' }}>{city.flag}</span>
-      <span style={{
-        fontFamily: "'DM Serif Display', serif",
-        fontSize: '1.1rem',
-        display: 'block',
-        marginBottom: '0.1rem',
-        color: 'var(--text)',
-      }}>{city.city}</span>
-      <span style={{
-        fontSize: '0.58rem',
-        letterSpacing: '0.18em',
-        color: 'var(--muted)',
-        textTransform: 'uppercase',
-        display: 'block',
-        marginBottom: '0.9rem',
-      }}>{city.country}</span>
-      <span style={{
-        fontFamily: "'DM Mono', monospace",
-        fontSize: '1.55rem',
-        fontWeight: 500,
-        color: 'var(--accent)',
-        letterSpacing: '-0.02em',
-        display: 'block',
-        lineHeight: 1,
-      }}>{time}</span>
-      <span style={{
-        fontSize: '0.6rem',
-        color: 'var(--muted)',
-        letterSpacing: '0.1em',
-        marginTop: '0.4rem',
-        display: 'block',
-      }}>{date}</span>
-      <span style={{
-        position: 'absolute',
-        bottom: '0.9rem',
-        right: '1.1rem',
-        fontSize: '0.52rem',
-        letterSpacing: '0.15em',
-        color: 'rgba(100,160,220,0.2)',
-        textTransform: 'uppercase',
-      }}>{city.tz.split('/')[1]?.replace('_', ' ')}</span>
+      <span className="clock-flag">{city.flag}</span>
+      <span className="clock-city">{city.city}</span>
+      <span className="clock-country">{city.country}</span>
+      <span className="clock-time">{time}</span>
+      <span className="clock-date">{date}</span>
+      <span className="clock-tz">{city.tz.split('/')[1]?.replace('_', ' ')}</span>
     </div>
   )
 }
@@ -221,11 +175,11 @@ function WorldMap({ times }) {
   const [position, setPosition] = useState({ coordinates: [0, 20], zoom: 1 })
 
   return (
-    <div style={{ position: 'relative', background: '#071524', borderRadius: '0 0 14px 14px' }}>
+    <div className="map-panel">
       <ComposableMap
         projection="geoNaturalEarth1"
         projectionConfig={{ scale: 185, center: [10, 10] }}
-        style={{ width: '100%', height: 'auto', display: 'block' }}
+        className="world-map-svg"
       >
         <ZoomableGroup
           zoom={position.zoom}
@@ -320,16 +274,7 @@ function WorldMap({ times }) {
       </ComposableMap>
 
       {/* Zoom hint */}
-      <div style={{
-        position: 'absolute',
-        bottom: '0.8rem',
-        right: '1rem',
-        fontSize: '0.52rem',
-        color: 'rgba(100,160,220,0.3)',
-        letterSpacing: '0.15em',
-        textTransform: 'uppercase',
-        pointerEvents: 'none',
-      }}>
+      <div className="map-zoom-hint">
         Scroll to zoom · Drag to pan
       </div>
     </div>
@@ -352,10 +297,24 @@ export default function App() {
   }, [])
 
   return (
-    <div style={{ position: 'relative', zIndex: 1, maxWidth: '1120px', margin: '0 auto', padding: '3rem 1.5rem 4rem' }}>
+    <div style={{
+      minHeight: '100dvh',
+      display: 'grid',
+      gridTemplateRows: 'auto minmax(0, 1fr) auto',
+      position: 'relative',
+      zIndex: 1,
+      maxWidth: '1120px',
+      margin: '0 auto',
+      padding: 'clamp(1rem, 2.5vh, 2.2rem) 1.5rem clamp(1rem, 2.5vh, 2.4rem)',
+      overflow: 'hidden',
+    }}>
 
       {/* Header */}
-      <header style={{ textAlign: 'center', marginBottom: '3rem', animation: 'fadeDown 0.8s ease both' }}>
+      <header style={{
+        textAlign: 'center',
+        marginBottom: 'clamp(0.65rem, 1.8vh, 1.4rem)',
+        animation: 'fadeDown 0.8s ease both',
+      }}>
         <p style={{ fontSize: '0.62rem', letterSpacing: '0.38em', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '0.7rem' }}>
           Global Time Dashboard
         </p>
@@ -376,7 +335,7 @@ export default function App() {
       {/* UTC Bar */}
       <div style={{
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        gap: '0.5rem', marginBottom: '1.8rem',
+        gap: '0.5rem', marginBottom: 'clamp(0.75rem, 1.7vh, 1.4rem)',
         fontSize: '0.63rem', color: 'var(--muted)',
         animation: 'fadeDown 1s 0.1s ease both',
       }}>
@@ -385,61 +344,54 @@ export default function App() {
         <span style={{ color: 'var(--accent2)', fontWeight: 500 }}>{utc}</span>
       </div>
 
-      {/* Map Card */}
-      <div style={{
-        border: '1px solid var(--border)',
-        borderRadius: '16px',
-        overflow: 'hidden',
-        marginBottom: '2rem',
-        animation: 'fadeUp 0.9s 0.2s ease both',
-        boxShadow: '0 8px 40px rgba(0,0,0,0.4)',
+      <main className="app-content-grid" style={{
+        minHeight: 0,
+        display: 'grid',
+        gridTemplateRows: 'minmax(0, 1fr) auto',
+        gap: 'clamp(0.75rem, 1.8vh, 1.2rem)',
       }}>
-        {/* Map header bar */}
-        <div style={{
-          padding: '0.7rem 1.2rem',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          background: 'var(--surface)',
-          borderBottom: '1px solid var(--border)',
-        }}>
-          <span style={{ fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--muted)', textTransform: 'uppercase' }}>
-            World Map
-          </span>
-          <span style={{ marginLeft: 'auto', fontSize: '0.55rem', color: 'rgba(201,168,76,0.5)', letterSpacing: '0.15em' }}>
-            NATURAL EARTH PROJECTION
-          </span>
+        {/* Map Card */}
+        <div className="map-card">
+          {/* Map header bar */}
+          <div style={{
+            padding: '0.7rem 1.2rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            background: 'var(--surface)',
+            borderBottom: '1px solid var(--border)',
+          }}>
+            <span style={{ fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--muted)', textTransform: 'uppercase' }}>
+              World Map
+            </span>
+            <span style={{ marginLeft: 'auto', fontSize: '0.55rem', color: 'rgba(201,168,76,0.5)', letterSpacing: '0.15em' }}>
+              NATURAL EARTH PROJECTION
+            </span>
+          </div>
+
+          <WorldMap times={times} />
         </div>
 
-        <WorldMap times={times} />
-      </div>
-
-      {/* Clock Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))',
-        gap: '1px',
-        background: 'var(--border)',
-        border: '1px solid var(--border)',
-        borderRadius: '16px',
-        overflow: 'hidden',
-        boxShadow: '0 8px 40px rgba(0,0,0,0.3)',
-      }}>
-        {CITIES.map((city, i) => (
-          <ClockCard key={city.id} city={city} delay={0.1 + i * 0.08} />
-        ))}
-      </div>
+        {/* Clock Grid */}
+        <div className="clock-grid">
+          {CITIES.map((city, i) => (
+            <ClockCard key={city.id} city={city} delay={0.1 + i * 0.08} />
+          ))}
+        </div>
+      </main>
 
       <footer style={{
         textAlign: 'center',
-        marginTop: '2.5rem',
+        marginTop: 'clamp(0.7rem, 2vh, 1.4rem)',
         fontSize: '0.55rem',
         color: 'rgba(232,228,216,0.18)',
         letterSpacing: '0.18em',
         animation: 'fadeUp 1s 0.7s ease both',
+        paddingTop: 'clamp(0.25rem, 1vh, 0.65rem)',
       }}>
         LIVE · UPDATING EVERY SECOND · ALL TIMES LOCAL
       </footer>
+
     </div>
   )
 }
