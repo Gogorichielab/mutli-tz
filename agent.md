@@ -84,6 +84,7 @@ Prioritize work in this order:
 - Fix the root cause when practical.
 - Do not refactor unrelated parts of the app.
 - Update documentation only when behavior, setup, or deployment changes.
+- Never manually modify `CHANGELOG.md`; it is CI-managed by `.github/workflows/deploy.yml`.
 - After code changes, run a production build before considering the task complete.
 - Preserve the current Vite and GitHub Pages deployment assumptions unless the task explicitly requires changing them.
 
