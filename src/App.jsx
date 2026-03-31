@@ -297,10 +297,24 @@ export default function App() {
   }, [])
 
   return (
-    <div style={{ position: 'relative', zIndex: 1, maxWidth: '1120px', margin: '0 auto', padding: '3rem 1.5rem 4rem' }}>
+    <div style={{
+      minHeight: '100dvh',
+      display: 'grid',
+      gridTemplateRows: 'auto minmax(0, 1fr) auto',
+      position: 'relative',
+      zIndex: 1,
+      maxWidth: '1120px',
+      margin: '0 auto',
+      padding: 'clamp(1rem, 2.5vh, 2.2rem) 1.5rem clamp(1rem, 2.5vh, 2.4rem)',
+      overflow: 'hidden',
+    }}>
 
       {/* Header */}
-      <header style={{ textAlign: 'center', marginBottom: '3rem', animation: 'fadeDown 0.8s ease both' }}>
+      <header style={{
+        textAlign: 'center',
+        marginBottom: 'clamp(0.65rem, 1.8vh, 1.4rem)',
+        animation: 'fadeDown 0.8s ease both',
+      }}>
         <p style={{ fontSize: '0.62rem', letterSpacing: '0.38em', color: 'var(--accent)', textTransform: 'uppercase', marginBottom: '0.7rem' }}>
           Global Time Dashboard
         </p>
@@ -321,7 +335,7 @@ export default function App() {
       {/* UTC Bar */}
       <div style={{
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        gap: '0.5rem', marginBottom: '1.8rem',
+        gap: '0.5rem', marginBottom: 'clamp(0.75rem, 1.7vh, 1.4rem)',
         fontSize: '0.63rem', color: 'var(--muted)',
         animation: 'fadeDown 1s 0.1s ease both',
       }}>
@@ -330,45 +344,54 @@ export default function App() {
         <span style={{ color: 'var(--accent2)', fontWeight: 500 }}>{utc}</span>
       </div>
 
-      {/* Map Card */}
-      <div className="map-card">
-        {/* Map header bar */}
-        <div style={{
-          padding: '0.7rem 1.2rem',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          background: 'var(--surface)',
-          borderBottom: '1px solid var(--border)',
-        }}>
-          <span style={{ fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--muted)', textTransform: 'uppercase' }}>
-            World Map
-          </span>
-          <span style={{ marginLeft: 'auto', fontSize: '0.55rem', color: 'rgba(201,168,76,0.5)', letterSpacing: '0.15em' }}>
-            NATURAL EARTH PROJECTION
-          </span>
+      <main className="app-content-grid" style={{
+        minHeight: 0,
+        display: 'grid',
+        gridTemplateRows: 'minmax(0, 1fr) auto',
+        gap: 'clamp(0.75rem, 1.8vh, 1.2rem)',
+      }}>
+        {/* Map Card */}
+        <div className="map-card">
+          {/* Map header bar */}
+          <div style={{
+            padding: '0.7rem 1.2rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            background: 'var(--surface)',
+            borderBottom: '1px solid var(--border)',
+          }}>
+            <span style={{ fontSize: '0.58rem', letterSpacing: '0.28em', color: 'var(--muted)', textTransform: 'uppercase' }}>
+              World Map
+            </span>
+            <span style={{ marginLeft: 'auto', fontSize: '0.55rem', color: 'rgba(201,168,76,0.5)', letterSpacing: '0.15em' }}>
+              NATURAL EARTH PROJECTION
+            </span>
+          </div>
+
+          <WorldMap times={times} />
         </div>
 
-        <WorldMap times={times} />
-      </div>
-
-      {/* Clock Grid */}
-      <div className="clock-grid">
-        {CITIES.map((city, i) => (
-          <ClockCard key={city.id} city={city} delay={0.1 + i * 0.08} />
-        ))}
-      </div>
+        {/* Clock Grid */}
+        <div className="clock-grid">
+          {CITIES.map((city, i) => (
+            <ClockCard key={city.id} city={city} delay={0.1 + i * 0.08} />
+          ))}
+        </div>
+      </main>
 
       <footer style={{
         textAlign: 'center',
-        marginTop: '2.5rem',
+        marginTop: 'clamp(0.7rem, 2vh, 1.4rem)',
         fontSize: '0.55rem',
         color: 'rgba(232,228,216,0.18)',
         letterSpacing: '0.18em',
         animation: 'fadeUp 1s 0.7s ease both',
+        paddingTop: 'clamp(0.25rem, 1vh, 0.65rem)',
       }}>
         LIVE · UPDATING EVERY SECOND · ALL TIMES LOCAL
       </footer>
+
     </div>
   )
 }
