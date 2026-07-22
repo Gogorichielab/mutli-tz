@@ -3,10 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      Content-Security-Policy: restrict every resource type to the app's own
+      origin. All previously external assets (map TopoJSON and web fonts) are now
+      bundled locally, so no third-party origins need to be allow-listed
+      (issues #15, #16). 'unsafe-inline' is kept only for style-src because
+      React/react-simple-maps apply inline style attributes at runtime.
+      Note: frame-ancestors and a report-uri require real response headers, which
+      GitHub Pages cannot set, so they are intentionally omitted from this meta tag.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'self'; object-src 'none'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self'; form-action 'self'; upgrade-insecure-requests"
+    />
     <title>World Clock</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>
