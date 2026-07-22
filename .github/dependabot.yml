@@ -1,5 +1,6 @@
 version: 2
 updates:
+  # Application dependencies (npm)
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
@@ -12,4 +13,21 @@ updates:
       - "dependencies"
     commit-message:
       prefix: "chore(deps)"
+      include: "scope"
+
+  # GitHub Actions used by the CI/CD workflows. Pinned action versions are a
+  # supply-chain surface too, so keep them scanned and updated (issue #19).
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "saturday"
+      time: "10:00"
+      timezone: "America/Chicago"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(ci)"
       include: "scope"
