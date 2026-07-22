@@ -7,8 +7,11 @@ import {
   ZoomableGroup,
 } from 'react-simple-maps'
 
-// Natural Earth topojson from the react-simple-maps CDN / unpkg
-const GEO_URL = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json'
+// world-atlas countries TopoJSON, bundled locally instead of loaded from a CDN
+// at runtime. Removing the external cdn.jsdelivr.net dependency eliminates the
+// supply-chain / integrity risk called out in issue #15 and keeps the app within
+// a strict self-only Content-Security-Policy (issue #16).
+import geoData from './assets/countries-110m.json'
 
 const CITIES = [
   {
@@ -66,6 +69,31 @@ const CITIES = [
     offset: 'ET',
   },
 ]
+
+// Validate a timezone string against the IANA database the runtime ships with,
+// before it is used for formatting or display. The CITIES list is hardcoded and
+// safe today, but this guards against invalid or injected timezone values if the
+// data ever comes from an external/user-supplied source (issue #18).
+function isValidTimezone(tz) {
+  if (typeof tz !== 'string' || tz.length === 0) return false
+  try {
+    // Throws RangeError for an unknown/invalid IANA timezone identifier.
+    new Intl.DateTimeFormat('en-US', { timeZone: tz })
+    return true
+  } catch {
+    return false
+  }
+}
+
+// Human-friendly label derived from a timezone id (e.g. "Asia/Kolkata" -> "Kolkata"),
+// with validation so an invalid id renders a safe fallback instead of arbitrary text.
+function getTimezoneDisplay(tz) {
+  if (!isValidTimezone(tz)) {
+    console.error(`Invalid timezone: ${String(tz)}`)
+    return 'Unknown'
+  }
+  return tz.split('/')[1]?.replace(/_/g, ' ') || tz
+}
 
 function getTime(tz) {
   return new Date().toLocaleTimeString('en-US', {
@@ -165,7 +193,7 @@ function ClockCard({ city, delay }) {
       <span className="clock-country">{city.country}</span>
       <span className="clock-time">{time}</span>
       <span className="clock-date">{date}</span>
-      <span className="clock-tz">{city.tz.split('/')[1]?.replace('_', ' ')}</span>
+      <span className="clock-tz">{getTimezoneDisplay(city.tz)}</span>
     </div>
   )
 }
@@ -200,7 +228,7 @@ function WorldMap({ times }) {
             />
           ))}
 
-          <Geographies geography={GEO_URL}>
+          <Geographies geography={geoData}>
             {({ geographies }) =>
               geographies.map(geo => (
                 <Geography
