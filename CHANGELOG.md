@@ -63,3 +63,10 @@ Auto-generated deploy changelog entries.
 
 <!-- last-deploy-sha: 3dbbf766cdca2dd3a648c5308032c425a8987b45 -->
 
+## Deploy 2026-07-23 12:57:19Z (`630c087`)
+
+- chore(ci)(deps): bump actions/github-script from 7 to 9 ([dd7bf78](https://github.com/Gogorichielab/mutli-tz/commit/dd7bf78e6c34da19de79f7ee481148dafd6d0d59))
+- Merge pull request #33 from Gogorichielab/dependabot/github_actions/actions/github-script-9 ([630c087](https://github.com/Gogorichielab/mutli-tz/commit/630c087393c73564956ff8296ecb389a5c53eb31))
+
+<!-- last-deploy-sha: 630c087393c73564956ff8296ecb389a5c53eb31 -->
+
