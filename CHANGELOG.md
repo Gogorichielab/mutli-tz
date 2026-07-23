@@ -55,3 +55,11 @@ Auto-generated deploy changelog entries.
 
 <!-- last-deploy-sha: e22c2e0c66940c6d499f26f1e80d265ce65926e7 -->
 
+## Deploy 2026-07-23 12:56:44Z (`3dbbf76`)
+
+- chore(ci)(deps): bump actions/setup-node from 4 to 7 ([a31b3d9](https://github.com/Gogorichielab/mutli-tz/commit/a31b3d97bdbcf293ab432f8272e7bd0bdc28ff85))
+- docs(changelog): update deploy changelog ([62afe8f](https://github.com/Gogorichielab/mutli-tz/commit/62afe8f93e122425dd7e84ed7d9f3393d21a2907))
+- Merge pull request #34 from Gogorichielab/dependabot/github_actions/actions/setup-node-7 ([3dbbf76](https://github.com/Gogorichielab/mutli-tz/commit/3dbbf766cdca2dd3a648c5308032c425a8987b45))
+
+<!-- last-deploy-sha: 3dbbf766cdca2dd3a648c5308032c425a8987b45 -->
+
