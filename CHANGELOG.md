@@ -70,3 +70,12 @@ Auto-generated deploy changelog entries.
 
 <!-- last-deploy-sha: 630c087393c73564956ff8296ecb389a5c53eb31 -->
 
+## Deploy 2026-07-27 13:28:30Z (`e49d793`)
+
+- chore(ci)(deps): bump actions/upload-pages-artifact from 3 to 5 ([5ac5c6a](https://github.com/Gogorichielab/mutli-tz/commit/5ac5c6ae473ba02a0fbe807267f21d7305b7c6ff))
+- docs(changelog): update deploy changelog ([46bd34f](https://github.com/Gogorichielab/mutli-tz/commit/46bd34fd7a90d5571dc7546c898c1c34241c575b))
+- docs(changelog): update deploy changelog ([237127f](https://github.com/Gogorichielab/mutli-tz/commit/237127f4722c110aa9416c3b8445c6dd918d67e9))
+- Merge pull request #32 from Gogorichielab/dependabot/github_actions/actions/upload-pages-artifact-5 ([e49d793](https://github.com/Gogorichielab/mutli-tz/commit/e49d793cf6199bb9190442754be9f634e5950898))
+
+<!-- last-deploy-sha: e49d793cf6199bb9190442754be9f634e5950898 -->
+
