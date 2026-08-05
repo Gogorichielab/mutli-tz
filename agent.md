@@ -88,10 +88,90 @@ Prioritize work in this order:
 - After code changes, run a production build before considering the task complete.
 - Preserve the current Vite and GitHub Pages deployment assumptions unless the task explicitly requires changing them.
 
+## Commit Conventions
+
+Every commit in this repository must follow the
+[Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/)
+specification. This applies to agents and humans alike, and to every branch.
+
+### Format
+
+```
+<type>(<optional scope>): <description>
+
+<optional body>
+
+<optional footer(s)>
+```
+
+- Type is required and lowercase.
+- Scope is optional, lowercase, and names the area touched.
+- Description is a short imperative summary — "add", not "added"/"adds" — with no
+	trailing period and a subject line of about 72 characters or fewer.
+- Body explains why, separated by a blank line, wrapped at about 72 columns.
+- Footers carry metadata: `Refs: #12`, `Closes: #12`, `BREAKING CHANGE: ...`.
+
+### Allowed Types
+
+| Type | Use for |
+|---|---|
+| `feat` | New user-facing capability, including adding a city |
+| `fix` | Bug fix, including wrong times and DST errors |
+| `docs` | README, this file, or other documentation |
+| `style` | Formatting or visual polish with no behaviour change |
+| `refactor` | Restructuring with no behaviour change |
+| `perf` | Performance improvement |
+| `test` | Adding or updating tests |
+| `build` | Vite config, build output, or dependency changes |
+| `ci` | `.github/workflows/**` changes |
+| `chore` | Housekeeping that doesn't fit above |
+| `revert` | Reverting a previous commit |
+
+### Suggested Scopes
+
+`timezone`, `cities`, `map`, `clock`, `ui`, `layout`, `build`, `pages`, `deps`,
+`changelog`
+
+### Breaking Changes
+
+Mark with a `!` after the type/scope, a `BREAKING CHANGE:` footer, or both. Here
+"breaking" means a removed city, a changed deployment path, or anything that
+changes the published URL.
+
+```
+feat(pages)!: serve the dashboard from a subpath
+
+BREAKING CHANGE: `base` is no longer './'; existing bookmarks to the site root
+will 404 until Pages settings are updated.
+```
+
+### Examples
+
+```
+feat(cities): add Sydney to the dashboard
+fix(timezone): correct Chicago DST display
+style(clock): increase digital clock contrast on mobile
+refactor(map): extract pin rendering from App
+build(deps): bump vite to 5.4.11
+ci(pages): pin actions/deploy-pages to v5
+docs(agent): document conventional commit requirements
+```
+
+### Rules Of Thumb
+
+- One logical change per commit; do not mix a dependency bump with a fix.
+- If a commit description needs "and", it should probably be two commits.
+- PR titles use the same format, so a squash merge produces a valid conventional
+	commit.
+- `CHANGELOG.md` commits are written by CI (`docs(changelog): ...`) — never hand-edit
+	that file or its commits.
+- Leave Dependabot's generated commit and PR titles alone.
+
 ## PR Standards
 
 - Keep PRs small and single-purpose.
-- Use a clear title in this style: `scope: short outcome` (example: `timezone: fix Chicago DST display`).
+- Title the PR as a Conventional Commit subject, for example
+	`fix(timezone): correct Chicago DST display`.
 - Include a short summary with:
 	- what changed
 	- why it changed
@@ -106,6 +186,7 @@ Prioritize work in this order:
 
 ### PR Checklist
 
+- [ ] Commit subjects and PR title follow Conventional Commits.
 - [ ] Scope is focused and relevant to the timezone dashboard.
 - [ ] Build passes locally (`npm run build`) when code changed.
 - [ ] Time displays were manually checked for affected cities.
@@ -129,6 +210,86 @@ Prioritize work in this order:
 - Features unrelated to the timezone dashboard.
 - Heavy redesigns without a clear request.
 - Changes that make the app harder to maintain.
+
+## Skills To Use
+
+This project expects agents to work with the following skill packs. Install them
+once, then invoke them by name or slash command as the task warrants.
+
+### 1. ponytail — Write The Least Code That Works
+
+<https://github.com/DietrichGebert/ponytail>
+
+Claude Code (send as two separate prompts):
+
+```
+/plugin marketplace add DietrichGebert/ponytail
+/plugin install ponytail@ponytail
+```
+
+Other agents: copy the matching rules file from that repo — `.cursor/rules/`,
+`.windsurf/rules/`, `.clinerules/`, `.github/copilot-instructions.md`,
+`.kiro/steering/ponytail.md`, or its `AGENTS.md` for everything else.
+
+Commands: `/ponytail [lite|full|ultra|off]`, `/ponytail-review`,
+`/ponytail-audit`, `/ponytail-debt`, `/ponytail-gain`, `/ponytail-help`.
+
+Use it here: ponytail's decision ladder matches this repo's operating principles
+almost exactly — prefer `Intl.DateTimeFormat` and other native APIs over new
+dependencies, and prefer editing `App.jsx` over introducing structure. Run
+`/ponytail-review` on the diff before opening a PR; treat a suggested state
+library, router, or abstraction layer as a signal to stop.
+
+### 2. marketing skills — Copy And Presentation
+
+<https://github.com/coreyhaines31/marketingskills>
+
+```bash
+npx skills add coreyhaines31/marketingskills
+# or a subset:
+npx skills add coreyhaines31/marketingskills --skill copywriting copy-editing
+```
+
+Claude Code plugin:
+
+```
+/plugin marketplace add coreyhaines31/marketingskills
+/plugin install marketing-skills
+```
+
+Use it here: this is an internal tool, so the marketing surface is small — labels,
+tooltips, empty states, the README, and any screenshot or announcement when the
+dashboard changes. Use `copywriting` and `copy-editing` for wording; skip the
+paid, SEO, and funnel skills, which do not apply to a private dashboard.
+
+### 3. business analysis skills — Framing Before Building
+
+<https://github.com/45ck/business-analysis-skills>
+
+```bash
+git clone https://github.com/45ck/business-analysis-skills.git
+cd business-analysis-skills
+bash install.sh          # installs to ~/.claude/skills/ and ~/.agents/skills/
+```
+
+Project-level instead: `cp -R .claude .agents /path/to/this-repo/`.
+
+Useful entry points: `/business-problem-framing`, `/stakeholder-analysis`,
+`/acceptance-criteria-writer`, `/moscow-prioritisation`,
+`/assumptions-constraints-log`, `/requirements-quality-check`.
+
+Use it here: keep it proportional — this is a dashboard for a handful of people,
+not a programme of work. Reach for these skills when a request is vague ("the
+times are confusing"), when deciding whether a city belongs on the map, or to
+log timezone and DST assumptions explicitly, which this repo already requires.
+
+### How They Fit Together
+
+1. Frame with business-analysis skills — what problem, whose, done when?
+2. Draft any user-visible wording with the marketing skills.
+3. Build under ponytail — the smallest change that ships it.
+4. Validate with `npm run build`.
+5. Commit using Conventional Commits, one logical change at a time.
 
 ## Working Agreement For Agents
 
