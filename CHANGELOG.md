@@ -90,3 +90,11 @@ Auto-generated deploy changelog entries.
 
 <!-- last-deploy-sha: d9767311b1fedf86a95b51b1234fa8ed5d5778c4 -->
 
+## Deploy 2026-08-05 01:44:05Z (`4aa6d7d`)
+
+- docs(changelog): update deploy changelog ([d2e7bd6](https://github.com/Gogorichielab/mutli-tz/commit/d2e7bd6538ab6dc29feb516585a00df4293c4541))
+- docs(changelog): update deploy changelog ([45a44bc](https://github.com/Gogorichielab/mutli-tz/commit/45a44bc40439b71b20187c4d0febb60925a4941a))
+- docs(agents): add CLAUDE.md and document commit and skill guidelines (#36) ([4aa6d7d](https://github.com/Gogorichielab/mutli-tz/commit/4aa6d7d4cbf6be591c38b11c903c5314c2de4edd))
+
+<!-- last-deploy-sha: 4aa6d7d4cbf6be591c38b11c903c5314c2de4edd -->
+
