@@ -105,3 +105,10 @@ Auto-generated deploy changelog entries.
 
 <!-- last-deploy-sha: f01184b55a09890f082dcf01bfe9791041ff1900 -->
 
+## Deploy 2026-08-05 02:47:07Z (`c9e7168`)
+
+- docs(changelog): update deploy changelog ([d805e56](https://github.com/Gogorichielab/mutli-tz/commit/d805e568bb3693599881e9281c2eeaebe3b6f190))
+- ci(deps): run Dependabot on the 28th at 20:00 America/Chicago (#38) ([c9e7168](https://github.com/Gogorichielab/mutli-tz/commit/c9e7168efa1db38c5c333bc481ff4fa559e311ca))
+
+<!-- last-deploy-sha: c9e7168efa1db38c5c333bc481ff4fa559e311ca -->
+
