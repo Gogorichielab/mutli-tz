@@ -98,3 +98,10 @@ Auto-generated deploy changelog entries.
 
 <!-- last-deploy-sha: 4aa6d7d4cbf6be591c38b11c903c5314c2de4edd -->
 
+## Deploy 2026-08-05 02:43:24Z (`f01184b`)
+
+- docs(changelog): update deploy changelog ([051a911](https://github.com/Gogorichielab/mutli-tz/commit/051a911628edecb2e8ee5fb5d0dc1953ffd9fa7f))
+- ci(deps): group Dependabot updates and move to a monthly cadence (#37) ([f01184b](https://github.com/Gogorichielab/mutli-tz/commit/f01184b55a09890f082dcf01bfe9791041ff1900))
+
+<!-- last-deploy-sha: f01184b55a09890f082dcf01bfe9791041ff1900 -->
+
