@@ -2,7 +2,7 @@
 
 Instructions for Claude Code working in this repository.
 
-> **Read [`agent.md`](agent.md) first.** It is the authoritative, tool-agnostic
+> **Read [`AGENTS.md`](AGENTS.md) first.** It is the authoritative, tool-agnostic
 > project brief. This file adds the Claude-specific bits and repeats only the
 > rules that are easy to get wrong.
 
@@ -75,7 +75,7 @@ fix(timezone): correct Chicago DST display
 build(deps): bump vite to 5.4.11
 ```
 
-Full type table and more examples: [`agent.md`](agent.md#commit-conventions).
+Full type table and more examples: [`AGENTS.md`](AGENTS.md#commit-conventions).
 
 ---
 
@@ -93,4 +93,4 @@ Order of operations: **frame** (business analysis) → **draft wording** (market
 Handy commands: `/ponytail-review`, `/ponytail-audit`, `/business-problem-framing`,
 `/acceptance-criteria-writer`, `/assumptions-constraints-log`.
 
-Details, non-Claude install paths, and per-skill guidance: [`agent.md`](agent.md#skills-to-use).
+Details, non-Claude install paths, and per-skill guidance: [`AGENTS.md`](AGENTS.md#skills-to-use).
