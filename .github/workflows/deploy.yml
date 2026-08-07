@@ -7,8 +7,7 @@ on:
     paths-ignore:
       - 'README.md'
       - 'Readme.md'
-      - 'agent.md'
-      - 'Agent.md'
+      - 'AGENTS.md'
       - 'CHANGELOG.md'
   workflow_dispatch:
 
