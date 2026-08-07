@@ -112,3 +112,11 @@ Auto-generated deploy changelog entries.
 
 <!-- last-deploy-sha: c9e7168efa1db38c5c333bc481ff4fa559e311ca -->
 
+## Deploy 2026-08-07 08:24:14Z (`64e3921`)
+
+- docs(changelog): update deploy changelog ([31a8a5a](https://github.com/Gogorichielab/mutli-tz/commit/31a8a5abc9c168ef09916238ac52b88cfb31139a))
+- docs: rename agent.md to AGENTS.md ([3f177ee](https://github.com/Gogorichielab/mutli-tz/commit/3f177ee77af2ecc2f940556b7dcb39262bc88ca8))
+- Merge pull request #39 from Gogorichielab/claude/rename-agent-claude-docs-zyy8v0 ([64e3921](https://github.com/Gogorichielab/mutli-tz/commit/64e3921e89b64e2b392040c6552a31501ec719b4))
+
+<!-- last-deploy-sha: 64e3921e89b64e2b392040c6552a31501ec719b4 -->
+
