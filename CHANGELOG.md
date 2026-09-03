@@ -120,3 +120,12 @@ Auto-generated deploy changelog entries.
 
 <!-- last-deploy-sha: 64e3921e89b64e2b392040c6552a31501ec719b4 -->
 
+## Deploy 2026-09-03 17:54:29Z (`9f15420`)
+
+- docs(changelog): update deploy changelog ([cf3395f](https://github.com/Gogorichielab/mutli-tz/commit/cf3395fa1942fbb6c9334406bf9a0495243839de))
+- chore(deps-dev): bump the npm-all group with 4 updates (#40) ([3d8a6a2](https://github.com/Gogorichielab/mutli-tz/commit/3d8a6a2b5c1e1e79aee77b769cb21f796bae428b))
+- chore(deps-dev): bump the npm-all group with 2 updates ([560e755](https://github.com/Gogorichielab/mutli-tz/commit/560e755023dd804f105e37cb71bee9ca9ea2cbec))
+- Merge pull request #41 from Gogorichielab/dependabot/npm_and_yarn/npm-all-9580d84d75 ([9f15420](https://github.com/Gogorichielab/mutli-tz/commit/9f1542042a0e2bb8ba6cbc9416c28a668f4718e4))
+
+<!-- last-deploy-sha: 9f1542042a0e2bb8ba6cbc9416c28a668f4718e4 -->
+
