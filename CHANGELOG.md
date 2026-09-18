@@ -129,3 +129,10 @@ Auto-generated deploy changelog entries.
 
 <!-- last-deploy-sha: 9f1542042a0e2bb8ba6cbc9416c28a668f4718e4 -->
 
+## Deploy 2026-09-18 08:16:19Z (`b61099b`)
+
+- docs(changelog): update deploy changelog ([c2dac67](https://github.com/Gogorichielab/mutli-tz/commit/c2dac671909c3db42401969fb037ee6291605c65))
+- ci: add shared merged-branch cleanup workflow (#43) ([b61099b](https://github.com/Gogorichielab/mutli-tz/commit/b61099b3bde6e254f97a130c187db4288a2c86f1))
+
+<!-- last-deploy-sha: b61099b3bde6e254f97a130c187db4288a2c86f1 -->
+
